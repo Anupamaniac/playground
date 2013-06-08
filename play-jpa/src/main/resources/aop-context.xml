@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans   xmlns="http://www.springframework.org/schema/beans"  
+        xmlns:p="http://www.springframework.org/schema/p"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:context="http://www.springframework.org/schema/context"  
+        xmlns:aop="http://www.springframework.org/schema/aop"  
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">  
+  
+       <!--  <bean id="performer-inj" class="com.anupam.playground.aop.Performer" scope="prototype" />  
+        <bean id="audience-inj" class="com.anupam.playground.aop.Audience" scope="prototype" />  
+          
+        <bean id="audienceAdvice-inj" class="com.anupam.playground.aop.AudienceAdvice" scope="prototype">  
+            <property name="audience" ref="audience-inj" />  
+        </bean>  
+         <bean id="advice-inj" class="com.anupam.playground.aop.Advice" scope="prototype">  
+            <property name="audience" ref="audience-inj" />  
+        </bean>     
+        <bean id="performance-pointcut-inj" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">  
+            <property name="pattern" value=".*perform" />  
+        </bean>  
+         <bean id="performer-appearance-pointcut-inj" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">  
+            <property name="pattern" value=".*performerAppearsOnStage" />  
+        </bean>     
+          
+           
+          
+   
+        <bean id="aa-inj1" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" scope="singleton">              
+            <property name="advisorBeanNamePrefix" value="advice-inj-1" />  
+        </bean>   -->
+        <bean id="audience" class="com.anupam.playground.aop.Audience" scope="prototype" />  
+        <aop:config>
+        <aop:aspect ref="audience">
+        	<aop:before method="takeSeats" pointcut="execution(* com.anupam.playground.aop.Performer.perform(..))"/>
+        	<aop:before method="turnOffCellPhones" pointcut="execution(* com.anupam.playground.aop.Performer.perform(..))"/>
+        	<aop:after-returning method="applause" pointcut="execution(* com.anupam.playground.aop.Performer.perform(..))"/>
+        	<aop:after-throwing method="demandRefund" pointcut="execution(* com.anupam.playground.aop.Performer.perform(..))"/>
+        </aop:aspect>
+        </aop:config>
+</beans>  
